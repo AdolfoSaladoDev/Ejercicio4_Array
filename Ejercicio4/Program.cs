@@ -109,9 +109,6 @@
                     {
                         if (arrayOfFloats.Contains(floatNumber))
                         {
-                            Console.Clear();
-
-                            Console.WriteLine("\n¡Ha acertado! Ha adivinado el número.");
 
                             isCorrect = true;
 
@@ -123,9 +120,9 @@
                             Console.WriteLine("\nNo ha acertado el número.");
 
                             Console.WriteLine($"\nEl número se encuentra entre {minNumber} y {maxNumber}");
-                        }
 
-                        attempts--;
+                            attempts--;
+                        }
 
                         isFloat = true;
                     }
@@ -134,6 +131,19 @@
                         Console.WriteLine("No ha introducido un número decimal. Vuelva a intentarlo.");
                     }
                 }
+            }
+
+            Console.Clear();
+
+            if (isCorrect)
+            {
+                Console.WriteLine("¡Enhorabuena! Has acertado el número.");
+
+            } else
+            {
+
+                Console.WriteLine("¡Lo siento! No ha acertado ningún número.");
+
             }
         }
     }
