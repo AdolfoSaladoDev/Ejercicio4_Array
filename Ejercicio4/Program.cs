@@ -4,6 +4,10 @@ namespace Ejercicio4
 {
     class Ejercicio4
     {
+        // Guardarán los valores máximos y mínimo del array.
+        private static float maxNumber;
+        private static float minNumber;
+
         static void Main(string[] args)
         {
             int sizeOfArray = AskSizeOfArrray();
@@ -11,6 +15,10 @@ namespace Ejercicio4
             TryToGuest(arrayOfFloats);
         }
 
+        /// <summary>
+        /// Método encargado de solicitar el tamaño del array. 
+        /// </summary>
+        /// <returns>Número de elementos que contendrá el array.</returns>
         private static int AskSizeOfArrray()
         {
             int sizeOfArray = 0;
@@ -34,6 +42,11 @@ namespace Ejercicio4
             return sizeOfArray;
         }
 
+        /// <summary>
+        /// Método encargado de crear el array de números decimales.
+        /// </summary>
+        /// <param name="sizeOfArray">Tamaño que tendrá el array</param>
+        /// <returns>Array de números decimales.</returns>
         private static float[] CreateArray(int sizeOfArray)
         {
             List<float> floatList = new List<float>();
@@ -61,12 +74,19 @@ namespace Ejercicio4
             return floatList.ToArray();
         }
 
+        /// <summary>
+        /// Método que ejecuta la lógica del juego.
+        /// El usuario tendrá cuatro intentos para adivinar un número que se encuentra en el array.
+        /// </summary>
+        /// <param name="arrayOfFloats">Array de números decimales.</param>
         private static void TryToGuest(float[] arrayOfFloats)
         {
-
             Console.Clear();
 
             bool isCorrect = false;
+
+            maxNumber = arrayOfFloats.Max() - 10;
+            minNumber = arrayOfFloats.Min() - 10;
 
             int attempts = 4;
 
@@ -78,13 +98,11 @@ namespace Ejercicio4
 
                 string floatNumberString = Console.ReadLine();
 
-                float floatNumber;
-
                 bool isFloat = false;
 
                 while (!isFloat)
                 {
-                    if (float.TryParse(floatNumberString, out floatNumber))
+                    if (float.TryParse(floatNumberString, out float floatNumber))
                     {
 
                         if (arrayOfFloats.Contains(floatNumber))
@@ -97,28 +115,7 @@ namespace Ejercicio4
                         {
                             Console.WriteLine("\nNo ha acertado el número.");
 
-                            var maxFloat = 0f;
-                            var minFloat = 100f;
-
-                            foreach (var f in arrayOfFloats)
-                            {
-                                if (f < minFloat && f > maxFloat)
-                                {
-                                    maxFloat = (f + 0.5f);
-                                    minFloat = (f - 0.5f);
-                                }
-                                else if ((f < minFloat) && !(f > maxFloat))
-                                {
-                                    minFloat = f - 0.5f;
-                                }
-                                else if (!(f < minFloat) && (f > maxFloat))
-                                {
-                                    maxFloat = f + 0.5f;
-                                }
-                            }
-
-                            Console.WriteLine($"\nEl número se encuentra entre {minFloat} y {maxFloat}");
-
+                            Console.WriteLine($"\nEl número se encuentra entre {minNumber} y {maxNumber}");
                         }
 
                         attempts--;
@@ -130,11 +127,8 @@ namespace Ejercicio4
                         Console.WriteLine("No ha introducido un número decimal. Vuelva a intentarlo.");
                     }
                 }
-
             }
-
-
         }
-    }
 
+    }
 }
