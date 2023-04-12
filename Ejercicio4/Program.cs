@@ -1,17 +1,20 @@
-﻿using System.Threading.Tasks;
-
-namespace Ejercicio4
+﻿namespace Ejercicio4
 {
-    class Ejercicio4
+    static class Ejercicio4
     {
         // Guardarán los valores máximos y mínimo del array.
         private static float maxNumber;
         private static float minNumber;
 
-        static void Main(string[] args)
+        static void Main()
         {
+            // Guarda el valor del tamaño del array.
             int sizeOfArray = AskSizeOfArrray();
+
+            // Array formado por números decimales.
             float[] arrayOfFloats = CreateArray(sizeOfArray);
+
+            // Ejecuta la lógica del programa.
             TryToGuest(arrayOfFloats);
         }
 
@@ -26,6 +29,8 @@ namespace Ejercicio4
 
             while (!isCorrect)
             {
+                Console.Clear();
+
                 Console.Write("Introduzca el tamaño que tendrá el array: ");
                 string numberUserString = Console.ReadLine();
 
@@ -49,16 +54,15 @@ namespace Ejercicio4
         /// <returns>Array de números decimales.</returns>
         private static float[] CreateArray(int sizeOfArray)
         {
-            List<float> floatList = new List<float>();
+            List<float> floatList = new();
 
             while (floatList.Count < sizeOfArray)
             {
-                float floatNumber;
-
                 Console.Write("\nIntroduce un número decimal: ");
+
                 string floatNumberString = Console.ReadLine();
 
-                if (float.TryParse(floatNumberString, out floatNumber))
+                if (float.TryParse(floatNumberString, out float floatNumber))
                 {
                     floatList.Add(floatNumber);
 
@@ -69,7 +73,6 @@ namespace Ejercicio4
                     Console.WriteLine("\nNo ha introducido un número válido. Debe ser un número decimal.");
                 }
             }
-
 
             return floatList.ToArray();
         }
@@ -85,8 +88,8 @@ namespace Ejercicio4
 
             bool isCorrect = false;
 
-            maxNumber = arrayOfFloats.Max() - 10;
-            minNumber = arrayOfFloats.Min() - 10;
+            maxNumber = arrayOfFloats.Max() + 0.50f;
+            minNumber = arrayOfFloats.Min() - 0.50f;
 
             int attempts = 4;
 
@@ -104,23 +107,27 @@ namespace Ejercicio4
                 {
                     if (float.TryParse(floatNumberString, out float floatNumber))
                     {
-
                         if (arrayOfFloats.Contains(floatNumber))
                         {
+                            Console.Clear();
+
                             Console.WriteLine("\n¡Ha acertado! Ha adivinado el número.");
+
                             isCorrect = true;
 
                         }
                         else
                         {
+                            Console.Clear();
+
                             Console.WriteLine("\nNo ha acertado el número.");
 
                             Console.WriteLine($"\nEl número se encuentra entre {minNumber} y {maxNumber}");
                         }
 
                         attempts--;
-                        isFloat = true;
 
+                        isFloat = true;
                     }
                     else
                     {
@@ -129,6 +136,5 @@ namespace Ejercicio4
                 }
             }
         }
-
     }
 }
